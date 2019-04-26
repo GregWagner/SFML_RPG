@@ -68,6 +68,13 @@ void Game::update()
 
     if (!mStates.empty()) {
         mStates.top()->update(mDeltaTime);
+        if (mStates.top()->getQuit()) {
+            mStates.top()->endState();
+            mStates.pop();
+        }
+    } else {
+        // if there are no more states, end the application
+        mWindow->close();
     }
 }
 
