@@ -1,16 +1,9 @@
 #include "Game.h"
-#include <SFML/Graphics.hpp>
 
 Game::Game()
 {
-    mWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "C++ SFML RPG", sf::Style::Default);
+    mWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "C++ SFML RPG", sf::Style::Default);
     mWindow->setFramerateLimit(60);
-}
-
-Game::~Game()
-{
-    delete mWindow;
-    mWindow = nullptr;
 }
 
 void Game::run()

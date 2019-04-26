@@ -1,11 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class Game {
 public:
     Game();
-    virtual ~Game();
+    virtual ~Game() = default;
 
     void run();
 
@@ -16,5 +17,5 @@ private:
     void render();
 
     // variables
-    sf::RenderWindow* mWindow { nullptr };
+    std::unique_ptr<sf::RenderWindow> mWindow { nullptr };
 };
