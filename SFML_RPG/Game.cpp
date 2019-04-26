@@ -12,13 +12,25 @@ Game::Game()
 
     std::ifstream ifs("Configs/window.ini");
     if (ifs.is_open()) {
-        std::cout << "Config file opened\n";
         std::getline(ifs, title);
         ifs >> windowBounds.width >> windowBounds.height >> framerateLimit >> verticalSyncEnabled;
+    } else {
+        std::cerr << "Unable to read config file - using defaults\n";
     }
-    mWindow = std::make_unique<sf::RenderWindow>(windowBounds, title, sf::Style::Default);
+    ifs.close();
+
+    mWindow = std::make_shared<sf::RenderWindow>(windowBounds, title, sf::Style::Default);
     mWindow->setFramerateLimit(framerateLimit);
     mWindow->setVerticalSyncEnabled(verticalSyncEnabled);
+
+    initStates();
+}
+
+Game::~Game()
+{
+    while (!mStates.empty()) {
+        mStates.pop();
+    }
 }
 
 void Game::run()
@@ -28,6 +40,11 @@ void Game::run()
         update();
         render();
     }
+}
+
+void Game::initStates()
+{
+    mStates.push(std::make_shared<GameState>(mWindow));
 }
 
 void Game::updateSFMLEvents()
@@ -48,11 +65,18 @@ void Game::updateDeltaTime()
 void Game::update()
 {
     updateSFMLEvents();
+
+    if (!mStates.empty()) {
+        mStates.top()->update(mDeltaTime);
+    }
 }
 
 void Game::render()
 {
     mWindow->clear();
 
+    if (!mStates.empty()) {
+        mStates.top()->render();
+    }
     mWindow->display();
 }

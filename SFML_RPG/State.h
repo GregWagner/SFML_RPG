@@ -5,12 +5,14 @@
 
 class State {
 public:
-    State();
-    ~State();
+    explicit State(std::shared_ptr<sf::RenderWindow> window);
+    ~State() = default;
 
-    virtual void update() = 0;
-    virtual void render() = 0;
+    virtual void endState() = 0;
+    virtual void update(const float& deltaTime) = 0;
+    virtual void render(std::shared_ptr<sf::RenderTarget> target = nullptr) = 0;
 
 private:
     std::vector<sf::Texture> mTextures {};
+    std::shared_ptr<sf::RenderWindow> mWindow;
 };
