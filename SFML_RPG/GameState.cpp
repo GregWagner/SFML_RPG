@@ -2,11 +2,13 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include "GameState.h"
+#include <fstream>
 #include <iostream>
 
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window,
-    std::map<std::string, int>* supportedKeys)
-    : State(window, supportedKeys)
+    std::map<std::string, int>* supportedKeys,
+    std::stack<State*>* states)
+    : State(window, supportedKeys, states)
 {
     initKeybinds();
 }
@@ -18,6 +20,7 @@ void GameState::endState()
 
 void GameState::update(const float& deltaTime)
 {
+    updateMousePosition();
     updateInput(deltaTime);
     mPlayer.update(deltaTime);
 }
@@ -50,8 +53,16 @@ void GameState::updateInput(const float& deltaTime)
 
 void GameState::initKeybinds()
 {
-    mKeyBinds.emplace("MOVE_LEFT", mSupportedKeys->at("A"));
-    mKeyBinds.emplace("MOVE_RIGHT", mSupportedKeys->at("D"));
-    mKeyBinds.emplace("MOVE_UP", mSupportedKeys->at("W"));
-    mKeyBinds.emplace("MOVE_DOWN", mSupportedKeys->at("S"));
+    std::ifstream ifs("Configs/gamestate_keybinds.ini");
+    if (ifs.is_open()) {
+        std::string key {};
+        std::string keyValue {};
+        while (ifs >> key >> keyValue) {
+            mKeyBinds[key] = mSupportedKeys->at(keyValue);
+        }
+
+    } else {
+        std::cerr << "Unable to open support keys configuration file\n";
+    }
+    ifs.close();
 }

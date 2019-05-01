@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameState.h"
+#include "MainMenuState.h"
 #include "State.h"
 #include <SFML/Graphics.hpp>
 #include <map>
@@ -32,5 +33,5 @@ private:
     sf::Clock mClock;
     float mDeltaTime {};
 
-    std::stack<std::shared_ptr<State>> mStates;
+    std::stack<State*> mStates;
 };

@@ -52,16 +52,22 @@ void ::Game::initWindow()
 
 void Game::initKeys()
 {
-    mSupportedKeys["Escape"] = sf::Keyboard::Escape;
-    mSupportedKeys["A"] = sf::Keyboard::A;
-    mSupportedKeys["D"] = sf::Keyboard::D;
-    mSupportedKeys["W"] = sf::Keyboard::W;
-    mSupportedKeys["S"] = sf::Keyboard::S;
+    std::ifstream ifs("Configs/supported_keys.ini");
+    if (ifs.is_open()) {
+        std::string key {};
+        int keyValue {};
+        while (ifs >> key >> keyValue) {
+            mSupportedKeys[key] = keyValue;
+        }
+    } else {
+        std::cerr << "Unable to open support keys configuration file\n";
+    }
+    ifs.close();
 }
 
 void Game::initStates()
 {
-    mStates.push(std::make_shared<GameState>(mWindow, &mSupportedKeys));
+    mStates.push(new MainMenuState(mWindow, &mSupportedKeys, &mStates));
 }
 
 void Game::updateSFMLEvents()
