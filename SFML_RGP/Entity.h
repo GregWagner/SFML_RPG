@@ -9,7 +9,7 @@ public:
     Entity() = default;
     virtual ~Entity() = default;
 
-    void createSprite(sf::Texture* texture);
+    void setTexture(sf::Texture& texture);
     void createMovementComponent(const float maxVelocity);
     virtual void move(const float& deltaTime, const float x, const float y);
     virtual void setPosition(float x, float y);
@@ -18,8 +18,7 @@ public:
     virtual void render(std::shared_ptr<sf::RenderTarget> target);
 
 protected:
-    sf::Texture* mTexture { nullptr };
-    std::unique_ptr<sf::Sprite> mSprite { nullptr };
+    sf::Sprite mSprite {};
 
     MovementComponent* mMovementComponet { nullptr };
 

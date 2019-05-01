@@ -1,8 +1,8 @@
 #include "Player.h"
 
-Player::Player(float x, float y, sf::Texture* texture)
+Player::Player(float x, float y, sf::Texture& texture)
 {
-    createSprite(texture);
+    setTexture(texture);
     setPosition(x, y);
     createMovementComponent(100.0f);
 }

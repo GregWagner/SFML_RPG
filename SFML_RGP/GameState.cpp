@@ -73,5 +73,5 @@ void GameState::initTextures()
 
 void GameState::initPlayers()
 {
-    mPlayer = std::make_unique<Player>(0.0f, 0.0f, &mTextures["PLAYER_IDLE"]);
+    mPlayer = std::make_unique<Player>(0.0f, 0.0f, mTextures["PLAYER_IDLE"]);
 }

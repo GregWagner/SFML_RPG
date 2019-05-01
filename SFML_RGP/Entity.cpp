@@ -3,31 +3,27 @@
 
 #include "Entity.h"
 
-void Entity::createSprite(sf::Texture* texture)
+void Entity::setTexture(sf::Texture& texture)
 {
-    mTexture = texture;
-    mSprite = std::make_unique<sf::Sprite>(*mTexture);
-    mSprite->scale(0.25f, 0.25f); // TODO: Remote this - temporary
+    mSprite.setTexture(texture);
+    mSprite.scale(0.25f, 0.25f); // TODO: Remote this - temporary
 }
 
 void Entity::createMovementComponent(const float maxVelocity)
 {
-    mMovementComponet = new MovementComponent(maxVelocity);
+    mMovementComponet = new MovementComponent(mSprite, maxVelocity);
 }
 
 void Entity::move(const float& deltaTime, const float dirX, const float dirY)
 {
-    if (mSprite && mMovementComponet) {
-        mMovementComponet->move(dirX, dirY);
-        mSprite->move(mMovementComponet->getVelocity() * deltaTime);
+    if (mMovementComponet) {
+        mMovementComponet->move(dirX, dirY, deltaTime);
     }
 }
 
 void Entity::setPosition(float x, float y)
 {
-    if (mSprite) {
-        mSprite->setPosition(x, y);
-    }
+    mSprite.setPosition(x, y);
 }
 
 void Entity::update(const float& deltaTime)
@@ -36,7 +32,5 @@ void Entity::update(const float& deltaTime)
 
 void Entity::render(std::shared_ptr<sf::RenderTarget> target)
 {
-    if (mSprite) {
-        target->draw(*mSprite);
-    }
+    target->draw(mSprite);
 }
