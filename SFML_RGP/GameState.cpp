@@ -15,11 +15,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window,
     initPlayers();
 }
 
-GameState::~GameState()
-{
-    delete mPlayer;
-}
-
 void GameState::update(const float& deltaTime)
 {
     updateMousePosition();
@@ -78,5 +73,5 @@ void GameState::initTextures()
 
 void GameState::initPlayers()
 {
-    mPlayer = new Player(0, 0, &mTextures["PLAYER_IDLE"]);
+    mPlayer = std::make_unique<Player>(0.0f, 0.0f, &mTextures["PLAYER_IDLE"]);
 }

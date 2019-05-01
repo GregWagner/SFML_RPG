@@ -3,20 +3,10 @@
 
 #include "Entity.h"
 
-Entity::Entity()
-{
-}
-
-Entity::~Entity()
-{
-    delete mSprite;
-    mSprite = nullptr;
-}
-
 void Entity::createSprite(sf::Texture* texture)
 {
     mTexture = texture;
-    mSprite = new sf::Sprite(*mTexture);
+    mSprite = std::make_unique<sf::Sprite>(*mTexture);
     mSprite->scale(0.25f, 0.25f); // TODO: Remote this - temporary
 }
 

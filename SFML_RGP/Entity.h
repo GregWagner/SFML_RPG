@@ -1,11 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class Entity {
 public:
-    Entity();
-    virtual ~Entity();
+    Entity() = default;
+    virtual ~Entity() = default;
 
     void createSprite(sf::Texture* texture);
     virtual void move(const float& deltaTime, const float x, const float y);
@@ -16,7 +17,7 @@ public:
 
 protected:
     sf::Texture* mTexture { nullptr };
-    sf::Sprite* mSprite { nullptr };
+    std::unique_ptr<sf::Sprite> mSprite { nullptr };
 
     float mMovementSpeed { 100.0f };
 
