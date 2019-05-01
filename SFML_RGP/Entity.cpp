@@ -10,10 +10,16 @@ void Entity::createSprite(sf::Texture* texture)
     mSprite->scale(0.25f, 0.25f); // TODO: Remote this - temporary
 }
 
+void Entity::createMovementComponent(const float maxVelocity)
+{
+    mMovementComponet = new MovementComponent(maxVelocity);
+}
+
 void Entity::move(const float& deltaTime, const float dirX, const float dirY)
 {
-    if (mSprite) {
-        mSprite->move(dirX * mMovementSpeed * deltaTime, dirY * mMovementSpeed * deltaTime);
+    if (mSprite && mMovementComponet) {
+        mMovementComponet->move(dirX, dirY);
+        mSprite->move(mMovementComponet->getVelocity() * deltaTime);
     }
 }
 

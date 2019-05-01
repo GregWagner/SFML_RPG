@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MovementComponent.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
 
@@ -9,6 +10,7 @@ public:
     virtual ~Entity() = default;
 
     void createSprite(sf::Texture* texture);
+    void createMovementComponent(const float maxVelocity);
     virtual void move(const float& deltaTime, const float x, const float y);
     virtual void setPosition(float x, float y);
 
@@ -19,7 +21,7 @@ protected:
     sf::Texture* mTexture { nullptr };
     std::unique_ptr<sf::Sprite> mSprite { nullptr };
 
-    float mMovementSpeed { 100.0f };
+    MovementComponent* mMovementComponet { nullptr };
 
 private:
 };
