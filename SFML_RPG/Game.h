@@ -30,6 +30,8 @@ private:
     std::shared_ptr<sf::RenderWindow> mWindow { nullptr };
     std::map<std::string, int> mSupportedKeys;
 
+    std::vector<sf::VideoMode> mVideoModes;
+
     sf::Clock mClock;
     float mDeltaTime {};
 

@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window,
     std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
@@ -14,9 +15,12 @@ MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window,
     initFonts();
     initButtons();
 
+    if (!mBackgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg1.png")) {
+        throw("Error = MainMenuState Failed to load background texture");
+    }
     mBackground.setSize(sf::Vector2f(static_cast<float>(mWindow->getSize().x),
         static_cast<float>(mWindow->getSize().y)));
-    mBackground.setFillColor(sf::Color::Magenta);
+    mBackground.setTexture(&mBackgroundTexture);
 }
 
 MainMenuState::~MainMenuState()
@@ -65,6 +69,18 @@ void MainMenuState::render(std::shared_ptr<sf::RenderTarget> target)
     target->draw(mBackground);
 
     renderButtons(target);
+
+    /*
+    sf::Text mousePos;
+    mousePos.setPosition(mMousePosView.x, mMousePosView.y - 50);
+    mousePos.setFont(mFont);
+    mousePos.setCharacterSize(14);
+    std::stringstream ss;
+    ss << mMousePosView.x << ", " << mMousePosView.y;
+    mousePos.setString(ss.str());
+
+    target->draw(mousePos);
+    */
 }
 
 void MainMenuState::renderButtons(std::shared_ptr<sf::RenderTarget> target)
@@ -98,10 +114,13 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initButtons()
 {
-    mButtons["GAME_STATE"] = new Button(100, 100, 150, 50, &mFont,
+    mButtons["GAME_STATE"] = new Button(300, 480, 250, 50, &mFont,
         "New Game", sf::Color(70, 70, 70, 200),
         sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-    mButtons["EXIT_STATE"] = new Button(100, 300, 150, 50, &mFont,
+    mButtons["SETTINGs"] = new Button(300, 580, 250, 50, &mFont,
+        "Settings", sf::Color(70, 70, 70, 200),
+        sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+    mButtons["EXIT_STATE"] = new Button(300, 780, 250, 50, &mFont,
         "Quit", sf::Color(100, 100, 100, 200),
         sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }

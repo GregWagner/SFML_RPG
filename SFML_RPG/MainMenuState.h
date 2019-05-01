@@ -20,6 +20,7 @@ public:
 
 private:
     sf::RectangleShape mBackground;
+    sf::Texture mBackgroundTexture;
     sf::Font mFont;
 
     std::map<std::string, Button*> mButtons;
