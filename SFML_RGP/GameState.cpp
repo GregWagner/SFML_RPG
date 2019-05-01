@@ -11,13 +11,20 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window,
     : State(window, supportedKeys, states)
 {
     initKeybinds();
+    initTextures();
+    initPlayers();
+}
+
+GameState::~GameState()
+{
+    delete mPlayer;
 }
 
 void GameState::update(const float& deltaTime)
 {
     updateMousePosition();
     updateInput(deltaTime);
-    mPlayer.update(deltaTime);
+    mPlayer->update(deltaTime);
 }
 
 void GameState::render(std::shared_ptr<sf::RenderTarget> target)
@@ -25,22 +32,22 @@ void GameState::render(std::shared_ptr<sf::RenderTarget> target)
     if (!target) {
         target = mWindow;
     }
-    mPlayer.render(target);
+    mPlayer->render(target);
 }
 
 void GameState::updateInput(const float& deltaTime)
 {
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_LEFT")))) {
-        mPlayer.move(deltaTime, -1.0f, 0.0f);
+        mPlayer->move(deltaTime, -1.0f, 0.0f);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_RIGHT")))) {
-        mPlayer.move(deltaTime, 1.0f, 0.0f);
+        mPlayer->move(deltaTime, 1.0f, 0.0f);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_UP")))) {
-        mPlayer.move(deltaTime, 0.0f, -1.0f);
+        mPlayer->move(deltaTime, 0.0f, -1.0f);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_DOWN")))) {
-        mPlayer.move(deltaTime, 0.0f, 1.0f);
+        mPlayer->move(deltaTime, 0.0f, 1.0f);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("CLOSE")))) {
         endState();
@@ -61,4 +68,15 @@ void GameState::initKeybinds()
         std::cerr << "Unable to open support keys configuration file\n";
     }
     ifs.close();
+}
+
+void GameState::initTextures()
+{
+    // TODO - Check if texture loaded
+    mTextures["PLAYER_IDLE"].loadFromFile("Resources/Images/Sprites/Player/test.png");
+}
+
+void GameState::initPlayers()
+{
+    mPlayer = new Player(0, 0, &mTextures["PLAYER_IDLE"]);
 }

@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <stack>
-#include <vector>
 
 class State {
 public:
@@ -23,10 +22,9 @@ protected:
     std::map<std::string, int>* mSupportedKeys;
     std::stack<State*>* mStates;
     std::map<std::string, int> mKeyBinds;
+    std::map<std::string, sf::Texture> mTextures {};
 
     bool mQuit {};
-
-    std::vector<sf::Texture> mTextures {};
 
     virtual void initKeybinds() = 0;
 

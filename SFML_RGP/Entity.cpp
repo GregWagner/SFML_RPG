@@ -16,13 +16,21 @@ Entity::~Entity()
 void Entity::createSprite(sf::Texture* texture)
 {
     mTexture = texture;
-    mSprite->setTexture(*mTexture);
+    mSprite = new sf::Sprite(*mTexture);
+    mSprite->scale(0.25f, 0.25f); // TODO: Remote this - temporary
 }
 
 void Entity::move(const float& deltaTime, const float dirX, const float dirY)
 {
     if (mSprite) {
         mSprite->move(dirX * mMovementSpeed * deltaTime, dirY * mMovementSpeed * deltaTime);
+    }
+}
+
+void Entity::setPosition(float x, float y)
+{
+    if (mSprite) {
+        mSprite->setPosition(x, y);
     }
 }
 
