@@ -5,17 +5,25 @@
 
 Entity::Entity()
 {
-    mShape.setSize(sf::Vector2f(50.0f, 50.0f));
-    mShape.setFillColor(sf::Color::White);
 }
 
 Entity::~Entity()
 {
+    delete mSprite;
+    mSprite = nullptr;
+}
+
+void Entity::createSprite(sf::Texture* texture)
+{
+    mTexture = texture;
+    mSprite->setTexture(*mTexture);
 }
 
 void Entity::move(const float& deltaTime, const float dirX, const float dirY)
 {
-    mShape.move(dirX * mMovementSpeed * deltaTime, dirY * mMovementSpeed * deltaTime);
+    if (mSprite) {
+        mSprite->move(dirX * mMovementSpeed * deltaTime, dirY * mMovementSpeed * deltaTime);
+    }
 }
 
 void Entity::update(const float& deltaTime)
@@ -24,5 +32,7 @@ void Entity::update(const float& deltaTime)
 
 void Entity::render(std::shared_ptr<sf::RenderTarget> target)
 {
-    target->draw(mShape);
+    if (mSprite) {
+        target->draw(*mSprite);
+    }
 }

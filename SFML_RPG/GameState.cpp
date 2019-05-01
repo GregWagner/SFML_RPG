@@ -13,11 +13,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window,
     initKeybinds();
 }
 
-void GameState::endState()
-{
-    std::cout << "Ending GameState\n";
-}
-
 void GameState::update(const float& deltaTime)
 {
     updateMousePosition();
@@ -35,8 +30,6 @@ void GameState::render(std::shared_ptr<sf::RenderTarget> target)
 
 void GameState::updateInput(const float& deltaTime)
 {
-    checkForQuit();
-
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_LEFT")))) {
         mPlayer.move(deltaTime, -1.0f, 0.0f);
     }
@@ -48,6 +41,9 @@ void GameState::updateInput(const float& deltaTime)
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_DOWN")))) {
         mPlayer.move(deltaTime, 0.0f, 1.0f);
+    }
+    if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("CLOSE")))) {
+        endState();
     }
 }
 

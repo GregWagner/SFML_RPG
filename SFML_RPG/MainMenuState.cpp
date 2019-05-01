@@ -30,11 +30,6 @@ MainMenuState::~MainMenuState()
     }
 }
 
-void MainMenuState::endState()
-{
-    std::cout << "Ending MainMenuState\n";
-}
-
 void MainMenuState::update(const float& deltaTime)
 {
     updateMousePosition();
@@ -44,7 +39,6 @@ void MainMenuState::update(const float& deltaTime)
 
 void MainMenuState::updateInput(const float& deltaTime)
 {
-    checkForQuit();
 }
 
 void MainMenuState::updateButtons()
@@ -57,7 +51,6 @@ void MainMenuState::updateButtons()
     }
     if (mButtons["EXIT_STATE"]->isPressed()) {
         endState();
-        mQuit = true;
     }
 }
 

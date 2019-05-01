@@ -11,7 +11,6 @@ public:
         std::map<std::string, int>* supportedKeys,
         std::stack<State*>* states);
 
-    void endState() override;
     void update(const float& deltaTime) override;
     void render(std::shared_ptr<sf::RenderTarget> target = nullptr) override;
     void updateInput(const float& deltaTime) override;

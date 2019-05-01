@@ -12,8 +12,7 @@ public:
         std::stack<State*>* states);
     bool getQuit() const;
 
-    virtual void checkForQuit();
-    virtual void endState() = 0;
+    void endState();
     virtual void update(const float& deltaTime) = 0;
     virtual void render(std::shared_ptr<sf::RenderTarget> target = nullptr) = 0;
     virtual void updateInput(const float& deltaTime) = 0;

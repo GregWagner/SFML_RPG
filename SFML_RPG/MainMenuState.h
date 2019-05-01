@@ -10,7 +10,6 @@ public:
         std::stack<State*>* states);
     virtual ~MainMenuState();
 
-    void endState() override;
     void update(const float& deltaTime) override;
     void updateInput(const float& deltaTime) override;
     void updateButtons();
