@@ -14,6 +14,8 @@ public:
 
     sf::Vector2f getVelocity() const;
 
+    bool isIdle() const;
+
 private:
     sf::Sprite& mSprite;
 

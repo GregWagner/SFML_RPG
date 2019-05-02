@@ -70,3 +70,8 @@ sf::Vector2f MovementComponent::getVelocity() const
 {
     return mVelocity;
 }
+
+bool MovementComponent::isIdle() const
+{
+    return mVelocity.x == 0.0f && mVelocity.y == 0.0f;
+}
