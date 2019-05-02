@@ -12,8 +12,9 @@ enum class ButtonState {
 class Button {
 public:
     Button(float x, float y, float width, float height,
-        sf::Font* font, const std::string& text, sf::Color idleColor,
-        sf::Color hoverColer, sf::Color activeColor);
+        sf::Font* font, const std::string& text, unsigned characterSize,
+        sf::Color textIdleColor, sf::Color textHoverColor, sf::Color textActiveColor,
+        sf::Color idleColor, sf::Color hoverColer, sf::Color activeColor);
 
     void render(std::shared_ptr<sf::RenderTarget> target);
     void update(sf::Vector2f mousePosition);
@@ -26,6 +27,10 @@ private:
     sf::RectangleShape mShape;
     sf::Font* mFont;
     sf::Text mText;
+
+    sf::Color mTextIdleColor;
+    sf::Color mTextHoverColor;
+    sf::Color mTextActiveColor;
 
     sf::Color mIdleColor;
     sf::Color mHoverColor;

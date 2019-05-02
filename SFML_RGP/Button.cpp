@@ -1,9 +1,13 @@
 #include "Button.h"
 
 Button::Button(float x, float y, float width, float height,
-    sf::Font* font, const std::string& text, sf::Color idleColor,
-    sf::Color hoverColer, sf::Color activeColor)
+    sf::Font* font, const std::string& text, unsigned characterSize,
+    sf::Color textIdleColor, sf::Color textHoverColor, sf::Color textActiveColor,
+    sf::Color idleColor, sf::Color hoverColer, sf::Color activeColor)
     : mFont(font)
+    , mTextIdleColor(textIdleColor)
+    , mTextHoverColor(textHoverColor)
+    , mTextActiveColor(textActiveColor)
     , mIdleColor(idleColor)
     , mHoverColor(hoverColer)
     , mActiveColor(activeColor)
@@ -14,9 +18,8 @@ Button::Button(float x, float y, float width, float height,
 
     mText.setFont(*mFont);
     mText.setString(text);
-    mText.setFillColor(sf::Color::White);
-    //mText.setColor(sf::Color::White);
-    mText.setCharacterSize(12);
+    mText.setFillColor(mTextIdleColor);
+    mText.setCharacterSize(characterSize);
     mText.setPosition(
         mShape.getPosition().x + (mShape.getGlobalBounds().width / 2.0f) - (mText.getGlobalBounds().width / 2.0f),
         mShape.getPosition().y + (mShape.getGlobalBounds().height / 2.0f) - (mText.getGlobalBounds().height / 2.0f));
@@ -32,13 +35,16 @@ void Button::update(const sf::Vector2f mousePosition)
 {
     mButtonState = ButtonState::IDLE;
     mShape.setFillColor(mIdleColor);
+    mText.setFillColor(mTextIdleColor);
     // update the booleans for hover and pressed
     if (mShape.getGlobalBounds().contains(mousePosition)) {
         mButtonState = ButtonState::HOVER;
         mShape.setFillColor(mHoverColor);
+        mText.setFillColor(mTextHoverColor);
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             mButtonState = ButtonState::ACTIVE;
             mShape.setFillColor(mActiveColor);
+            mText.setFillColor(mActiveColor);
         }
     }
 }

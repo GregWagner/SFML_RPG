@@ -15,18 +15,43 @@ MovementComponent::~MovementComponent()
 
 void MovementComponent::update(const float& deltaTime)
 {
-    // deceleration
-    if (mVelocity.x > 0.0f) {
-        // going to the right
+    if (mVelocity.x > 0.0f) { // player is moving to the right
+        if (mVelocity.x > mMaxVelocity) {
+            mVelocity.x = mMaxVelocity;
+        }
+        // deceleration
         mVelocity.x -= mDeceleration;
         if (mVelocity.x < 0.0f) {
             mVelocity.x = 0.0f;
         }
-    } else {
-        // going to the left
+    } else if (mVelocity.x < 0.0f) { // player is moving to the left
+        if (mVelocity.x < -mMaxVelocity) {
+            mVelocity.x = -mMaxVelocity;
+        }
+        // deceleration
         mVelocity.x += mDeceleration;
         if (mVelocity.x > 0.0f) {
-            mVelocity.x = 0;
+            mVelocity.x = 0.0f;
+        }
+    }
+
+    if (mVelocity.y > 0.0f) { // player is moving up
+        if (mVelocity.y > mMaxVelocity) {
+            mVelocity.y = mMaxVelocity;
+        }
+        // deceleration
+        mVelocity.y -= mDeceleration;
+        if (mVelocity.y < 0.0f) {
+            mVelocity.y = 0.0f;
+        }
+    } else if (mVelocity.y < 0.0f) { // player is moving up
+        if (mVelocity.y < -mMaxVelocity) {
+            mVelocity.y = -mMaxVelocity;
+        }
+        // deceleration
+        mVelocity.y += mDeceleration;
+        if (mVelocity.y > 0.0f) {
+            mVelocity.y = 0.0f;
         }
     }
 
@@ -36,24 +61,9 @@ void MovementComponent::update(const float& deltaTime)
 
 void MovementComponent::move(const float dirX, const float dirY, const float deltaTime)
 {
-    // accelerating the sprite until it reaches max velocity
+    // acceleration
     mVelocity.x += mAcceleration * dirX;
-    if (mVelocity.x > 0.0f) {
-        // going to the right
-        if (mVelocity.x > mMaxVelocity) {
-            mVelocity.x = mMaxVelocity;
-        }
-    } else {
-        // going to the left
-        if (mVelocity.x < -mMaxVelocity) {
-            mVelocity.x = -mMaxVelocity;
-        }
-    }
-
     mVelocity.y += mAcceleration * dirY;
-    if (mVelocity.y > mMaxVelocity) {
-        mVelocity.y = mMaxVelocity;
-    }
 }
 
 sf::Vector2f MovementComponent::getVelocity() const
