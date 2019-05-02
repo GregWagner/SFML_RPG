@@ -18,9 +18,9 @@ Player::~Player()
 void Player::update(const float& deltaTime)
 {
     mMovementComponet->update(deltaTime);
-    if (mMovementComponet->isIdle()) {
+    if (mMovementComponet->getState(MovementStates::IDLE)) {
         mAnimationComponent->play("IDLE_LEFT", deltaTime);
-    } else {
+    } else if (mMovementComponet->getState(MovementStates::MOVING_LEFT)) {
         mAnimationComponent->play("WALK_LEFT", deltaTime);
     }
 }

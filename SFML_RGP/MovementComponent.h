@@ -2,6 +2,15 @@
 
 #include <SFML/Graphics.hpp>
 
+enum class MovementStates {
+    IDLE,
+    MOVING,
+    MOVING_UP,
+    MOVING_DOWN,
+    MOVING_LEFT,
+    MOVING_RIGHT
+};
+
 class MovementComponent {
 
 public:
@@ -14,7 +23,7 @@ public:
 
     sf::Vector2f getVelocity() const;
 
-    bool isIdle() const;
+    bool getState(MovementStates state) const;
 
 private:
     sf::Sprite& mSprite;

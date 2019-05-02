@@ -71,7 +71,21 @@ sf::Vector2f MovementComponent::getVelocity() const
     return mVelocity;
 }
 
-bool MovementComponent::isIdle() const
+bool MovementComponent::getState(MovementStates state) const
 {
-    return mVelocity.x == 0.0f && mVelocity.y == 0.0f;
+    switch (state) {
+    case MovementStates::IDLE:
+        return mVelocity.x == 0.0f && mVelocity.y == 0.0f;
+    case MovementStates::MOVING:
+        return mVelocity.x != 0.0f || mVelocity.y != 0.0f;
+    case MovementStates::MOVING_DOWN:
+        return mVelocity.y > 0.0f;
+    case MovementStates::MOVING_LEFT:
+        return mVelocity.x < 0.0f;
+    case MovementStates::MOVING_RIGHT:
+        return mVelocity.x > 0.0f;
+    case MovementStates::MOVING_UP:
+        return mVelocity.y < 0.0f;
+    }
+    return false;
 }
