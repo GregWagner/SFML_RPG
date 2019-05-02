@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AnimationComponent.h"
 #include "MovementComponent.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -11,6 +12,8 @@ public:
 
     void setTexture(sf::Texture& texture);
     void createMovementComponent(const float maxVelocity, float acceleration, float deceleration);
+    void createAnimationComponent(sf::Texture& textureSheet);
+
     virtual void move(const float x, const float y, const float& deltaTime);
     virtual void setPosition(float x, float y);
 
@@ -21,6 +24,7 @@ protected:
     sf::Sprite mSprite {};
 
     MovementComponent* mMovementComponet { nullptr };
+    AnimationComponent* mAnimationComponent { nullptr };
 
 private:
 };

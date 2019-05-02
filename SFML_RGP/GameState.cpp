@@ -68,10 +68,10 @@ void GameState::initKeybinds()
 void GameState::initTextures()
 {
     // TODO - Check if texture loaded
-    mTextures["PLAYER_IDLE"].loadFromFile("Resources/Images/Sprites/Player/test.png");
+    mTextures["PLAYER_SHEET"].loadFromFile("Resources/Images/Sprites/Player/PLAYer_SHEET.png");
 }
 
 void GameState::initPlayers()
 {
-    mPlayer = std::make_unique<Player>(0.0f, 0.0f, mTextures["PLAYER_IDLE"]);
+    mPlayer = std::make_unique<Player>(0.0f, 0.0f, mTextures["PLAYER_SHEET"]);
 }

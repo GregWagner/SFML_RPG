@@ -9,21 +9,19 @@ public:
     AnimationComponent(sf::Sprite& sprite, sf::Texture& textureSheet);
     virtual ~AnimationComponent();
 
-    void addAnimation(std::string key);
+    void addAnimation(const std::string key,
+        float animationTimer, int startFrameX, int startFrameY, int framesX, int framesY,
+        int width, int height);
 
-    void startAnimation(std::string animation);
-    void pauseAnimation(std::string animation);
-    void resetAnimation(std::string animation);
-
-    void update(const float& deltaTime);
+    void play(const std::string key, const float& deltaTime);
 
 private:
     class Animation {
     public:
-        Animation(sf::Sprite& sprite, sf::Texture& textureSheet, float animationTimer, int startX, int startY, int endX, int endY, int width, int height);
+        Animation(sf::Sprite& sprite, sf::Texture& textureSheet, float animationTimer,
+            int startFrameX, int startFrameY, int framesX, int framesY, int width, int height);
 
-        void update(const float& deltatime);
-        void pause();
+        void play(const float& deltatime);
         void reset();
 
         sf::Sprite& mSprite;
@@ -41,5 +39,5 @@ private:
     sf::Sprite& mSprite;
     sf::Texture& mTextureSheet;
 
-    std::map<std::string, Animation> animations;
+    std::map<std::string, Animation*> mAnimations;
 };

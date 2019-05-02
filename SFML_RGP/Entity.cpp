@@ -6,12 +6,13 @@ Entity::~Entity()
 {
     delete mMovementComponet;
     mMovementComponet = nullptr;
+    delete mAnimationComponent;
+    mAnimationComponent = nullptr;
 }
 
 void Entity::setTexture(sf::Texture& texture)
 {
     mSprite.setTexture(texture);
-    mSprite.scale(0.25f, 0.25f); // TODO: Remote this - temporary
 }
 
 void Entity::createMovementComponent(const float maxVelocity,
@@ -19,6 +20,11 @@ void Entity::createMovementComponent(const float maxVelocity,
 {
     mMovementComponet = new MovementComponent(mSprite, maxVelocity,
         acceleration, deceleration);
+}
+
+void Entity::createAnimationComponent(sf::Texture& textureSheet)
+{
+    mAnimationComponent = new AnimationComponent(mSprite, textureSheet);
 }
 
 void Entity::move(const float dirX, const float dirY, const float& deltaTime)
@@ -35,9 +41,6 @@ void Entity::setPosition(float x, float y)
 
 void Entity::update(const float& deltaTime)
 {
-    if (mMovementComponet) {
-        mMovementComponet->update(deltaTime);
-    }
 }
 
 void Entity::render(std::shared_ptr<sf::RenderTarget> target)

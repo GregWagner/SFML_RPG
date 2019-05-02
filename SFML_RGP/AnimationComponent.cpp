@@ -8,30 +8,26 @@ AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& textureS
 
 AnimationComponent::~AnimationComponent()
 {
+    for (auto& animation : mAnimations) {
+        delete animation.second;
+    }
 }
 
-void AnimationComponent::addAnimation(std::string key)
+void AnimationComponent::addAnimation(const std::string key, float animationTimer,
+    int startFrameX, int startFrameY, int framesX, int framesY,
+    int width, int height)
 {
+    mAnimations[key] = new Animation(mSprite, mTextureSheet, animationTimer,
+        startFrameX, startFrameY, framesX, framesY, width, height);
 }
 
-void AnimationComponent::startAnimation(std::string animation)
+void AnimationComponent::play(const std::string key, const float& deltaTime)
 {
-}
-
-void AnimationComponent::pauseAnimation(std::string animation)
-{
-}
-
-void AnimationComponent::resetAnimation(std::string animation)
-{
-}
-
-void AnimationComponent::update(const float& deltaTime)
-{
+    mAnimations[key]->play(deltaTime);
 }
 
 AnimationComponent::Animation::Animation(sf::Sprite& sprite, sf::Texture& textureSheet,
-    float animationTimer, int startX, int startY, int endX, int endY,
+    float animationTimer, int startFrameX, int startFrameY, int framesX, int framesY,
     int width, int height)
     : mSprite(sprite)
     , mTextureSheet(textureSheet)
@@ -39,17 +35,17 @@ AnimationComponent::Animation::Animation(sf::Sprite& sprite, sf::Texture& textur
     , mWidth(width)
     , mHeight(height)
 {
-    mStartRect = sf::IntRect(startX, startY, width, height);
+    mStartRect = sf::IntRect(startFrameX * width, startFrameY * height, width, height);
     mCurrentRect = mStartRect;
-    mEndRect = sf::IntRect(endX, endY, width, height);
+    mEndRect = sf::IntRect(framesX * width, framesY * height, width, height);
 
     mSprite.setTexture(textureSheet, true);
     mSprite.setTextureRect(mStartRect);
 }
 
-void AnimationComponent::Animation::update(const float& deltatime)
+void AnimationComponent::Animation::play(const float& deltatime)
 {
-    mTimer = 10.0f * deltatime;
+    mTimer += 100.0f * deltatime;
     if (mTimer >= mAnimationTimer) {
         mTimer = 0.0f;
 
@@ -58,13 +54,12 @@ void AnimationComponent::Animation::update(const float& deltatime)
         } else {
             mCurrentRect.left = mStartRect.left;
         }
+        mSprite.setTextureRect(mCurrentRect);
     }
-}
-
-void AnimationComponent::Animation::pause()
-{
 }
 
 void AnimationComponent::Animation::reset()
 {
+    mTimer = 0.0f;
+    mCurrentRect = mStartRect;
 }
