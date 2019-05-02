@@ -33,16 +33,16 @@ void GameState::render(std::shared_ptr<sf::RenderTarget> target)
 void GameState::updateInput(const float& deltaTime)
 {
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_LEFT")))) {
-        mPlayer->move(deltaTime, -1.0f, 0.0f);
+        mPlayer->move(-1.0f, 0.0f, deltaTime);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_RIGHT")))) {
-        mPlayer->move(deltaTime, 1.0f, 0.0f);
+        mPlayer->move(1.0f, 0.0f, deltaTime);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_UP")))) {
-        mPlayer->move(deltaTime, 0.0f, -1.0f);
+        mPlayer->move(0.0f, -1.0f, deltaTime);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("MOVE_DOWN")))) {
-        mPlayer->move(deltaTime, 0.0f, 1.0f);
+        mPlayer->move(0.0f, 1.0f, deltaTime);
     }
     if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(mKeyBinds.at("CLOSE")))) {
         endState();
