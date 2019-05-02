@@ -23,6 +23,13 @@ void AnimationComponent::addAnimation(const std::string key, float animationTime
 
 void AnimationComponent::play(const std::string key, const float& deltaTime)
 {
+    if (mLastAnimation != mAnimations[key]) {
+        if (mLastAnimation) {
+            // this was not the 1st animation so reset the previous one
+            mLastAnimation->reset();
+        }
+        mLastAnimation = mAnimations[key];
+    }
     mAnimations[key]->play(deltaTime);
 }
 

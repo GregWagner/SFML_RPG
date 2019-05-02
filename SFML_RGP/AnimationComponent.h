@@ -39,5 +39,6 @@ private:
     sf::Sprite& mSprite;
     sf::Texture& mTextureSheet;
 
-    std::map<std::string, Animation*> mAnimations;
+    std::map<std::string, Animation*> mAnimations {};
+    Animation* mLastAnimation { nullptr };
 };

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include "MainMenuState.h"
+#include "EditorState.h"
 #include "GameState.h"
 #include <fstream>
 #include <iostream>
@@ -48,6 +49,9 @@ void MainMenuState::updateButtons()
     }
     if (mButtons["GAME_STATE"]->isPressed()) {
         mStates->push(new GameState(mWindow, mSupportedKeys, mStates));
+    }
+    if (mButtons["EDITOR_STATE"]->isPressed()) {
+        mStates->push(new EditorState(mWindow, mSupportedKeys, mStates));
     }
     if (mButtons["EXIT_STATE"]->isPressed()) {
         endState();
