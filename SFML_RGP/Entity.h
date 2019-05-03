@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AnimationComponent.h"
+#include "HitBoxComponent.h"
 #include "MovementComponent.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -23,6 +24,7 @@ public:
 protected:
     sf::Sprite mSprite {};
 
+    HitBoxComponent* mHixBoxComponent { nullptr };
     MovementComponent* mMovementComponet { nullptr };
     AnimationComponent* mAnimationComponent { nullptr };
 

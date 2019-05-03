@@ -8,6 +8,8 @@ Entity::~Entity()
     mMovementComponet = nullptr;
     delete mAnimationComponent;
     mAnimationComponent = nullptr;
+    delete mHixBoxComponent;
+    mHixBoxComponent = nullptr;
 }
 
 void Entity::setTexture(sf::Texture& texture)

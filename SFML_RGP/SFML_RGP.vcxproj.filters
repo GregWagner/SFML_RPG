@@ -48,6 +48,9 @@
     <ClCompile Include="EditorState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HitBoxComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBoxComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
