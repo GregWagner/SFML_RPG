@@ -65,7 +65,7 @@ void MainMenuState::render(std::shared_ptr<sf::RenderTarget> target)
     }
     target->draw(mBackground);
 
-    renderButtons(target);
+    renderButtons(*target);
 
     /*
     sf::Text mousePos;
@@ -80,7 +80,7 @@ void MainMenuState::render(std::shared_ptr<sf::RenderTarget> target)
     */
 }
 
-void MainMenuState::renderButtons(std::shared_ptr<sf::RenderTarget> target)
+void MainMenuState::renderButtons(sf::RenderTarget& target)
 {
     for (auto button : mButtons) {
         button.second->render(target);

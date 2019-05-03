@@ -50,7 +50,7 @@ void EditorState::render(std::shared_ptr<sf::RenderTarget> target)
         target = mWindow;
     }
 
-    renderButtons(target);
+    renderButtons(*target);
 
     /*
     sf::Text mousePos;
@@ -65,7 +65,7 @@ void EditorState::render(std::shared_ptr<sf::RenderTarget> target)
     */
 }
 
-void EditorState::renderButtons(std::shared_ptr<sf::RenderTarget> target)
+void EditorState::renderButtons(sf::RenderTarget& target)
 {
     for (auto button : mButtons) {
         button.second->render(target);

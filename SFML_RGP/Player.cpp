@@ -6,7 +6,7 @@ Player::Player(float x, float y, sf::Texture& textureSheet)
 
     createMovementComponent(300.0f, 15.0f, 5.0f);
     createAnimationComponent(textureSheet);
-    createHitBoxComponent(mSprite, 0.0f, 0.0f, 192.0f, 192.0f);
+    createHitBoxComponent(mSprite, 86.0f, 70.0f, 86.0f, 111.0f);
 
     mAnimationComponent->addAnimation("IDLE_LEFT", 10.0f, 0, 0, 13, 0, 192, 192);
     mAnimationComponent->addAnimation("WALK_LEFT", 10.0f, 0, 1, 11, 1, 192, 192);

@@ -25,10 +25,10 @@ Button::Button(float x, float y, float width, float height,
         mShape.getPosition().y + (mShape.getGlobalBounds().height / 2.0f) - (mText.getGlobalBounds().height / 2.0f));
 }
 
-void Button::render(std::shared_ptr<sf::RenderTarget> target)
+void Button::render(sf::RenderTarget& target)
 {
-    target->draw(mShape);
-    target->draw(mText);
+    target.draw(mShape);
+    target.draw(mText);
 }
 
 void Button::update(const sf::Vector2f mousePosition)

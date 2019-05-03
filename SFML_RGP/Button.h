@@ -16,7 +16,7 @@ public:
         sf::Color textIdleColor, sf::Color textHoverColor, sf::Color textActiveColor,
         sf::Color idleColor, sf::Color hoverColer, sf::Color activeColor);
 
-    void render(std::shared_ptr<sf::RenderTarget> target);
+    void render(sf::RenderTarget& target);
     void update(sf::Vector2f mousePosition);
 
     bool isPressed() const;

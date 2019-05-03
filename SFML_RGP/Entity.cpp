@@ -51,11 +51,11 @@ void Entity::update(const float& deltaTime)
 {
 }
 
-void Entity::render(std::shared_ptr<sf::RenderTarget> target)
+void Entity::render(sf::RenderTarget& target)
 {
-    target->draw(mSprite);
+    target.draw(mSprite);
 
     if (mHixBoxComponent) {
-        mHixBoxComponent->render(*target);
+        mHixBoxComponent->render(target);
     }
 }

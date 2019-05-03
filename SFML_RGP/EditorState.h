@@ -15,7 +15,7 @@ public:
     void updateButtons();
 
     void render(std::shared_ptr<sf::RenderTarget> target = nullptr) override;
-    void renderButtons(std::shared_ptr<sf::RenderTarget> target = nullptr);
+    void renderButtons(sf::RenderTarget& target);
 
 private:
     sf::Font mFont;

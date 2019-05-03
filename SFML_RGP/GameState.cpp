@@ -27,7 +27,7 @@ void GameState::render(std::shared_ptr<sf::RenderTarget> target)
     if (!target) {
         target = mWindow;
     }
-    mPlayer->render(target);
+    mPlayer->render(*target);
 }
 
 void GameState::updateInput(const float& deltaTime)

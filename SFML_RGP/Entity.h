@@ -21,7 +21,7 @@ public:
     virtual void setPosition(float x, float y);
 
     virtual void update(const float& deltaTime);
-    virtual void render(std::shared_ptr<sf::RenderTarget> target);
+    virtual void render(sf::RenderTarget& target);
 
 protected:
     sf::Sprite mSprite {};
