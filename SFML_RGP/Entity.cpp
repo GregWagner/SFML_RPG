@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include "Entity.h"
+
 Entity::~Entity()
 {
     delete mMovementComponet;
@@ -29,6 +30,11 @@ void Entity::createAnimationComponent(sf::Texture& textureSheet)
     mAnimationComponent = new AnimationComponent(mSprite, textureSheet);
 }
 
+void Entity::createHitBoxComponent(sf::Sprite& sprite, float offsetX, float offsetY, float width, float height)
+{
+    mHixBoxComponent = new HitBoxComponent(sprite, offsetX, offsetY, width, height);
+}
+
 void Entity::move(const float dirX, const float dirY, const float& deltaTime)
 {
     if (mMovementComponet) {
@@ -48,4 +54,8 @@ void Entity::update(const float& deltaTime)
 void Entity::render(std::shared_ptr<sf::RenderTarget> target)
 {
     target->draw(mSprite);
+
+    if (mHixBoxComponent) {
+        mHixBoxComponent->render(*target);
+    }
 }

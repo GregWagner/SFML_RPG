@@ -12,8 +12,10 @@ public:
     virtual ~Entity();
 
     void setTexture(sf::Texture& texture);
+
     void createMovementComponent(const float maxVelocity, float acceleration, float deceleration);
     void createAnimationComponent(sf::Texture& textureSheet);
+    void createHitBoxComponent(sf::Sprite& sprite, float offsetX, float offsetY, float width, float height);
 
     virtual void move(const float x, const float y, const float& deltaTime);
     virtual void setPosition(float x, float y);
